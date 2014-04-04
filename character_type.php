@@ -9,7 +9,7 @@
   License: GPL2
 */
 
-
+// creates the post type
 function character_post() {
 	$labels = array(
 		'name'               => _x( 'Characters', 'post type general name' ),
@@ -36,10 +36,8 @@ function character_post() {
 	);
 	register_post_type( 'Character', $args );
 }
-add_action( 'init', 'character_post' );
 
-add_action( 'add_meta_boxes', 'character_char_box' );
-
+// makes the meta box area on the edit screen
 function character_char_box() {
     add_meta_box(
         'character_char_box',
@@ -51,6 +49,7 @@ function character_char_box() {
     );
 }
 
+// supposed to populate it
 function character_char_box_content( $post ) {
 	wp_nonce_field( plugin_basename( __FILE__ ), 'character_char_box_content_nonce' );
 	echo '<label for="character_char"></label>';
@@ -62,3 +61,7 @@ function character_char_box_content( $post ) {
 * keep going on this: http://wp.smashingmagazine.com/2012/11/08/complete-guide-custom-post-types/
 * under "HANDLING SUBMITTED DATA"...
 */
+
+// add the actions
+add_action( 'init', 'character_post' );
+add_action( 'add_meta_boxes', 'character_char_box' );
